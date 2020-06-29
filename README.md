@@ -1,6 +1,6 @@
 # **Help Queue**
 
-#### Author: **Jessica Hvozdovicha**
+#### Author: **Jessica Hvozdovich**
 #### June 27, 2020
 
 ### Description
