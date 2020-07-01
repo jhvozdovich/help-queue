@@ -8,7 +8,7 @@ function App() {
       <Header />
       <TicketControl />
     </React.Fragment>
-  )
+  );
 }
 
-export default App;
+export default App; 
