@@ -1,6 +1,7 @@
 import React from 'react';
 import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
+import TicketDetail from './TicketDetail';
 
 const questionArray = ["Have you gone through all the steps on the Learn How to Program debugging lesson?",
   "Have you asked another pair for help?",
@@ -12,8 +13,18 @@ class TicketControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       currentQuestionNumber: 0,
-      masterTicketList: []
+      masterTicketList: [],
+      selectedTicket: null
     };
+  }
+
+  handleDetailClick = () => {
+    if (this.state.selectedTicket != null) {
+      this.setState({
+        formVisibleOnPage: false,
+        selectedTicket: null
+      });
+    }
   }
 
   handleFormClick = () => {
@@ -49,14 +60,23 @@ class TicketControl extends React.Component {
     });
   }
 
+  handleChangingSelectedTicket = (id) => {
+    const selectedTicket = this.state.masterTicketList
+      .filter(ticket => ticket.id === id)[0];
+    this.setState({ selectedTicket: selectedTicket });
+  }
+
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
     let buttonPage = null;
     let breakButton = null;
     let backButton = null;
-
-    if (this.state.formVisibleOnPage) {
+    if (this.state.selectedTicket != null) {
+      currentlyVisibleState = <TicketDetail ticket={this.state.selectedTicket} />
+      buttonText = "Return to Ticket List";
+      buttonPage = this.handleDetailClick;
+    } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />
       buttonText = "Return to Ticket List";
       buttonPage = this.handleFormClick;
@@ -80,7 +100,7 @@ class TicketControl extends React.Component {
       backButton = <button onClick={this.handleBackClick}>Back</button>
     }
     else {
-      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} />
+      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />
       buttonText = "Add Ticket";
       buttonPage = this.handleQuestionClick;
     }
