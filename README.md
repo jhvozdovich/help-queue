@@ -5,7 +5,7 @@
 
 ### Description
 
-_This application serves as an introduction to React with create-react-app, components, JSX, and props while building a static site. The help queue app displays a list of help request tickets and will expanded to be dynamic with form fields to write new tickets and display all ticket information dynamically._
+_This application serves as an introduction to React with create-react-app, components, JSX, and props while building a static site. The help queue app displays a list of help request tickets and will expanded to be dynamic with form fields to write new tickets and display all ticket information dynamically. Refactored to add Redux._
 
 ### Instructions for use:
 
@@ -44,6 +44,7 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 * JavaScript
 * React
+* Redux
 * JSX
 * HTML
 * Git and GitHub
