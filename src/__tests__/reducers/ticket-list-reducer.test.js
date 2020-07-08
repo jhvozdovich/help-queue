@@ -1,4 +1,5 @@
 import ticketListReducer from '../../reducers/ticket-list-reducer';
+import * as a from './../../actions/index.js';
 
 describe('ticketListReducer', () => {
   let action;
@@ -35,13 +36,12 @@ describe('ticketListReducer', () => {
 
   test("should add new ticket data to masterTicketList", () => {
     const { names, location, issue, id } = ticketData;
-    action = {
-      type: "ADD_TICKET",
+    action = a.addTicket({
       names: names,
       location: location,
       issue: issue,
       id: id
-    }
+    })
     expect(ticketListReducer({}, action)).toEqual({
       [id]: {
         names: names,
@@ -55,20 +55,18 @@ describe('ticketListReducer', () => {
   test("should update ticket data with new ticket", () => {
     const { names, location, issue, id } = ticketData;
     const { names2, location2, issue2, id2 } = ticketData2;
-    action = {
-      type: "ADD_TICKET",
+    action = a.addTicket({
       names: names,
       location: location,
       issue: issue,
       id: id
-    }
-    action2 = {
-      type: "ADD_TICKET",
+    })
+    action2 = a.addTicket({
       names: names2,
       location: location2,
       issue: issue2,
       id: id2
-    }
+    })
     let original = ticketListReducer({}, action)[0];
     expect(ticketListReducer(original, action2)).toEqual({
       [id2]: {
@@ -81,10 +79,7 @@ describe('ticketListReducer', () => {
   })
 
   test("should delete a ticket", () => {
-    action = {
-      type: "DELETE_TICKET",
-      id: 1
-    }
+    action = a.deleteTicket(1)
     expect(ticketListReducer(currentState, action)).toEqual({
       2: {
         names: "Nick & Jessica",
