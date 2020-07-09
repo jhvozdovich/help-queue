@@ -12,6 +12,8 @@ function TicketList(props) {
           location={ticket.location}
           issue={ticket.issue}
           key={ticket.id}
+          formattedWaitTime={ticket.formattedWaitTime}
+
           id={ticket.id} />
       })}
     </React.Fragment>
