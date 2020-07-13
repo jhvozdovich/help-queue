@@ -37,50 +37,6 @@ describe('ticketListReducer', () => {
     expect(ticketListReducer({}, { type: null })).toEqual({});
   });
 
-  test("should add new ticket data to masterTicketList", () => {
-    const { names, location, issue, id } = ticketData;
-    action = a.addTicket({
-      names: names,
-      location: location,
-      issue: issue,
-      id: id
-    })
-    expect(ticketListReducer({}, action)).toEqual({
-      [id]: {
-        names: names,
-        location: location,
-        issue: issue,
-        id: id
-      }
-    })
-  })
-
-  test("should update ticket data with new ticket", () => {
-    const { names, location, issue, id } = ticketData;
-    const { names2, location2, issue2, id2 } = ticketData2;
-    action = a.addTicket({
-      names: names,
-      location: location,
-      issue: issue,
-      id: id
-    })
-    action2 = a.addTicket({
-      names: names2,
-      location: location2,
-      issue: issue2,
-      id: id2
-    })
-    let original = ticketListReducer({}, action)[0];
-    expect(ticketListReducer(original, action2)).toEqual({
-      [id2]: {
-        names: names2,
-        location: location2,
-        issue: issue2,
-        id: id2
-      }
-    })
-  })
-
   test("should delete a ticket", () => {
     action = a.deleteTicket(1)
     expect(ticketListReducer(currentState, action)).toEqual({
@@ -108,29 +64,6 @@ describe('ticketListReducer', () => {
         timeOpen: timeOpen,
         id: id,
         formattedWaitTime: '4 minutes'
-      }
-    });
-  });
-
-  test('should successfully add a ticket to the ticket list that includes Moment-formatted wait times', () => {
-    const { names, location, issue, timeOpen, id } = ticketData;
-    action = {
-      type: c.ADD_TICKET,
-      names: names,
-      location: location,
-      issue: issue,
-      timeOpen: timeOpen,
-      id: id,
-      formattedWaitTime: new Moment().fromNow(true)
-    };
-    expect(ticketListReducer({}, action)).toEqual({
-      [id]: {
-        names: names,
-        location: location,
-        issue: issue,
-        timeOpen: timeOpen,
-        id: id,
-        formattedWaitTime: 'a few seconds'
       }
     });
   });

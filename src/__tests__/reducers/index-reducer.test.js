@@ -23,17 +23,6 @@ describe("rootReducer", () => {
     expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, { type: null }));
   });
 
-  test('pass action and initial state of ticketListReducer matches root reducer', () => {
-    const action = a.addTicket({
-      names: 'Ryan & Aimen',
-      location: '4b',
-      issue: 'Redux action is not working correctly.',
-      id: 1
-    })
-    store.dispatch(action);
-    expect(store.getState().masterTicketList).toEqual(ticketListReducer(undefined, action));
-  });
-
   test('pass action and initial state of formVisibleReducer matches root reducer', () => {
     const action = a.toggleForm()
     store.dispatch(action);
