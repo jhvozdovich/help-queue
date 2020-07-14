@@ -6,7 +6,7 @@ import EditTicketForm from './EditTicketForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as a from './../actions';
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore, isLoaded } from 'react-redux-firebase'
 
 const questionArray = ["Have you gone through all the steps on the Learn How to Program debugging lesson?",
   "Have you asked another pair for help?",
@@ -116,6 +116,7 @@ class TicketControl extends React.Component {
   }
 
   render() {
+    const auth = this.props.firebase.auth();
     let currentlyVisibleState = null;
     let buttonText = null;
     let buttonPage = null;
@@ -157,14 +158,32 @@ class TicketControl extends React.Component {
       buttonText = "Add Ticket";
       buttonPage = this.handleQuestionClick;
     }
-    return (
-      <React.Fragment>
-        {currentlyVisibleState}
-        {breakButton}
-        <button onClick={buttonPage}>{buttonText}</button>
-        {backButton}
-      </React.Fragment >
-    );
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h3>Loading...</h3>
+        </React.Fragment>
+      )
+    }
+
+    if (isLoaded(auth) && (auth.currentUser === null)) {
+      return (
+        <React.Fragment>
+          <h3>Please sign in to access the queue!</h3>
+        </React.Fragment>
+      )
+    }
+
+    if ((isLoaded(auth)) && (auth.currentUser != null)) {
+      return (
+        <React.Fragment>
+          {currentlyVisibleState}
+          {breakButton}
+          <button onClick={buttonPage}>{buttonText}</button>
+          {backButton}
+        </React.Fragment >
+      );
+    }
   }
 }
 

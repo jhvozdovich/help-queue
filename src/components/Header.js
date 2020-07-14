@@ -1,8 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <h1>Help Queue</h1>
+    <React.Fragment>
+      <h1>Help Queue</h1>
+      <Link to="/">Home </Link>
+      <br />
+      <Link to="/signin">Sign In</Link>
+    </React.Fragment>
   );
 }
 
